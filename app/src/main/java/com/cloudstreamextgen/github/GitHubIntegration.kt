@@ -302,6 +302,7 @@ zipStorePath=wrapper/dists
     }
 
     private fun generateBuildWorkflow(config: RepoConfig): String {
+        val d = '$'
         return """name: Build
 concurrency:
   group: "build"
@@ -324,7 +325,7 @@ jobs:
           ref: "builds"
           path: "builds"
       - name: Clean old builds
-        run: rm -f \$GITHUB_WORKSPACE/builds/*.cs3
+        run: rm -f ${d}GITHUB_WORKSPACE/builds/*.cs3
       - name: Setup JDK 17
         uses: actions/setup-java@v1
         with:
@@ -333,18 +334,18 @@ jobs:
         uses: android-actions/setup-android@v2
       - name: Build Plugins
         run: |
-          cd \$GITHUB_WORKSPACE/src
+          cd ${d}GITHUB_WORKSPACE/src
           chmod +x gradlew
           ./gradlew make makePluginsJson
-          cp **/build/*.cs3 \$GITHUB_WORKSPACE/builds/
-          cp build/plugins.json \$GITHUB_WORKSPACE/builds/
+          cp **/build/*.cs3 ${d}GITHUB_WORKSPACE/builds/
+          cp build/plugins.json ${d}GITHUB_WORKSPACE/builds/
       - name: Push builds
         run: |
-          cd \$GITHUB_WORKSPACE/builds
+          cd ${d}GITHUB_WORKSPACE/builds
           git config --local user.email "actions@github.com"
           git config --local user.name "GitHub Actions"
           git add .
-          git commit --amend -m "Build \$GITHUB_SHA" || exit 0
+          git commit --amend -m "Build ${d}GITHUB_SHA" || exit 0
           git push --force
 """
     }

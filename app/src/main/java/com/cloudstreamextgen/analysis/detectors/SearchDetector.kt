@@ -1,5 +1,6 @@
 package com.cloudstreamextgen.analysis.detectors
 
+import com.cloudstreamextgen.analysis.HtmlAnalyzer
 import com.cloudstreamextgen.models.SearchAnalysis
 import com.cloudstreamextgen.models.SiteType
 

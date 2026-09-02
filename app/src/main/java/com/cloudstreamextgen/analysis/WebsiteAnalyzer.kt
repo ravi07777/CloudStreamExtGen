@@ -99,7 +99,7 @@ class WebsiteAnalyzer {
 
                 val videoDeferred: kotlinx.coroutines.Deferred<VideoAnalysis> = async {
                     onProgress(AnalysisStatus.DETECTING_VIDEO, "Analyzing video/embed logic...")
-                    videoDetector.detect(html, url, siteType)
+                    videoDetector.detect(html, url)
                 }
 
                 analysis = analysis.copy(
