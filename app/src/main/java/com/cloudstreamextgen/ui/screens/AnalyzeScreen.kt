@@ -32,6 +32,7 @@ import com.cloudstreamextgen.analysis.WebsiteAnalyzer
 import com.cloudstreamextgen.generator.ExtensionGenerator
 import com.cloudstreamextgen.generator.GeneratorConfig
 import com.cloudstreamextgen.github.GitHubIntegration
+import com.cloudstreamextgen.github.RepoConfig
 import com.cloudstreamextgen.models.*
 import com.cloudstreamextgen.ui.theme.*
 import kotlinx.coroutines.launch

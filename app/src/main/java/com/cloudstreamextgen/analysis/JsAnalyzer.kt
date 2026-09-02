@@ -3,9 +3,9 @@ package com.cloudstreamextgen.analysis
 class JsAnalyzer {
 
     fun isJsHeavy(html: String): Boolean {
-        val scriptCount = Regex("""<script[^>]*>""", RegexOption.IGNORE_CASE)
+        val scriptCount = """(?i)<script[^>]*>""".trimIndent().toRegex()
             .findAll(html).count()
-        val scriptContent = Regex("""<script[^>]*>(.*?)</script>""", RegexOption.DOT_MATCHES_ALL, RegexOption.IGNORE_CASE)
+        val scriptContent = """(?is)<script[^>]*>(.*?)</script>""".trimIndent().toRegex()
             .findAll(html).sumOf { it.groupValues[1].length }
         val inlineScriptRatio = scriptContent.toDouble() / html.length.coerceAtLeast(1)
 

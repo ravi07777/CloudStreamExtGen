@@ -1,4 +1,4 @@
-package com.cloudstreamextgen.analysis
+package com.cloudstreamextgen.analysis.detectors
 
 import com.cloudstreamextgen.models.SearchAnalysis
 import com.cloudstreamextgen.models.SiteType

@@ -1,5 +1,11 @@
 package com.cloudstreamextgen.analysis
 
+import com.cloudstreamextgen.analysis.detectors.ContentDetector
+import com.cloudstreamextgen.analysis.detectors.DetailDetector
+import com.cloudstreamextgen.analysis.detectors.EpisodeDetector
+import com.cloudstreamextgen.analysis.detectors.SearchDetector
+import com.cloudstreamextgen.analysis.detectors.StreamDetector
+import com.cloudstreamextgen.analysis.detectors.VideoDetector
 import com.cloudstreamextgen.models.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
@@ -76,22 +82,22 @@ class WebsiteAnalyzer {
                     searchDetector.detect(html, url, siteType)
                 }
 
-                val contentDeferred = async {
+                val contentDeferred: kotlinx.coroutines.Deferred<ContentAnalysis> = async {
                     onProgress(AnalysisStatus.DETECTING_CONTENT, "Analyzing content listing...")
                     contentDetector.detect(html, url, siteType)
                 }
 
-                val detailDeferred = async {
+                val detailDeferred: kotlinx.coroutines.Deferred<DetailAnalysis> = async {
                     onProgress(AnalysisStatus.DETECTING_DETAILS, "Analyzing detail pages...")
                     detailDetector.detect(html, url, siteType)
                 }
 
-                val episodeDeferred = async {
+                val episodeDeferred: kotlinx.coroutines.Deferred<EpisodeAnalysis> = async {
                     onProgress(AnalysisStatus.DETECTING_EPISODES, "Detecting episode structure...")
                     episodeDetector.detect(html, url, siteType)
                 }
 
-                val videoDeferred = async {
+                val videoDeferred: kotlinx.coroutines.Deferred<VideoAnalysis> = async {
                     onProgress(AnalysisStatus.DETECTING_VIDEO, "Analyzing video/embed logic...")
                     videoDetector.detect(html, url, siteType)
                 }

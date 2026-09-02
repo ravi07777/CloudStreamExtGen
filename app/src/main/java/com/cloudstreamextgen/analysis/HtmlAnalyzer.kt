@@ -43,7 +43,7 @@ class HtmlAnalyzer {
         if (cardElements.size >= 3) {
             val firstCard = cardElements.first()
             patterns.add(ContentPattern(
-                containerSelector = buildSelector(firstCard.parent()),
+                containerSelector = firstCard.parent()?.let { buildSelector(it) } ?: "",
                 itemSelector = buildSelector(firstCard),
                 itemCount = cardElements.size,
                 sampleData = extractItemData(firstCard)
