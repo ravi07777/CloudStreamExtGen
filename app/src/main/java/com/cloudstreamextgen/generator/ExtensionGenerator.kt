@@ -229,6 +229,8 @@ class ExtensionGenerator {
     }
 
     private fun generateBuildGradle(analysis: SiteAnalysis, config: GeneratorConfig, providerName: String): String {
+        val desc = config.description.ifEmpty { "Auto-generated extension for ${analysis.siteName}" }
+        val author = config.author.ifEmpty { "ExtGen" }
         return buildString {
             appendLine("dependencies {")
             appendLine("    implementation(\"com.google.android.material:material:1.12.0\")")
@@ -237,8 +239,8 @@ class ExtensionGenerator {
             appendLine("version = ${config.version}")
             appendLine()
             appendLine("cloudstream {")
-            appendLine("    description = \"${config.description.ifEmpty { "Auto-generated extension for ${analysis.siteName}\" }}\"")
-            appendLine("    authors = listOf(\"${config.author.ifEmpty { "ExtGen" } }\")")
+            appendLine("    description = \"$desc\"")
+            appendLine("    authors = listOf(\"$author\")")
             appendLine("    status = ${config.status}")
             if (analysis.contentType != ContentType.Unknown) {
                 appendLine("    tvTypes = listOf(\"${analysis.contentType.name}\")")
@@ -262,10 +264,12 @@ class ExtensionGenerator {
     }
 
     private fun generateRepoJson(config: GeneratorConfig): String {
+        val repoName = config.repoName.ifEmpty { "${config.providerName} Repository" }
+        val repoDesc = config.repoDescription.ifEmpty { "Cloudstream extension repository" }
         return buildString {
             appendLine("{")
-            appendLine("    \"name\": \"${config.repoName.ifEmpty { "${config.providerName} Repository" }}\",")
-            appendLine("    \"description\": \"${config.repoDescription.ifEmpty { "Cloudstream extension repository" }}\",")
+            appendLine("    \"name\": \"$repoName\",")
+            appendLine("    \"description\": \"$repoDesc\",")
             appendLine("    \"manifestVersion\": 1,")
             appendLine("    \"pluginLists\": [")
             appendLine("        \"https://raw.githubusercontent.com/${config.githubUsername}/${config.repoName}/builds/plugins.json\"")
