@@ -68,7 +68,7 @@ fun SettingsScreen() {
 
             item {
                 SettingsItem(
-                    icon = Icons.Filled.UserAgent,
+                    icon = Icons.Filled.Person,
                     title = "User Agent",
                     subtitle = "Desktop Chrome"
                 )
